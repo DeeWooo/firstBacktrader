@@ -13,9 +13,6 @@ import pandas as pd
 from backtrader_plotting import Bokeh, OptBrowser
 from backtrader_plotting.schemes import Tradimo
 
-
-
-
 from strategies import dev  as stg_dev
 from strategies import pro  as stg
 import dataprocess as dp
@@ -25,13 +22,7 @@ if __name__ == '__main__':
 
     dp.get_data()
 
-
-
-
-
     cerebro = bt.Cerebro()
-
-
 
     modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
     datapath = os.path.join(modpath, 'data/600036.csv')
@@ -55,7 +46,7 @@ if __name__ == '__main__':
     # cur.day
     # cur.month
     data = bt.feeds.GenericCSVData(
-        dataname= 'data/600036-3.csv',
+        dataname= 'data/600036.csv',
         fromdate=datetime.datetime(2019, 7, 1),
         todate=datetime.datetime(cur.year, cur.month, cur.day),
         dtformat='%Y-%m-%d',

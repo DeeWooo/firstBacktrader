@@ -23,6 +23,9 @@ class SmaCross(bt.Strategy):
 
         self.order = None    # 设置订单引用，用于取消以往发出的尚未执行的订单
 
+        self.message_able = False
+        self.message = "";
+
 
     def next(self): # 每个新bar结束时触发调用一次，相当于其他框架的 on_bar()方法
 
@@ -41,32 +44,40 @@ class SmaCross(bt.Strategy):
 
         # print(self.data0.datetime.date(0))
         # print(self.fastMA.get(), self.slowMA.get())
-        trade_day = self.data0.datetime.date(0)
-        cur_date = datetime.datetime.now().date()
-        # cur_date = datetime.datetime(2021, 11, 16).date()
 
-        pre_date = cur_date + datetime.timedelta(days=-1)
 
         # current_day
         if self.crossover < 0 and self.position:  # 死叉且有仓位
             self.order = self.order_target_value(target=0)
-            # 提醒信息
-            # print(trade_day)
-            # print(cur_date)
-            # print(pre_date)
-            if trade_day == pre_date:
-                print(cur_date)
-                message.send_message("全部卖出")
+            self.message = "全部卖出"
+            self.message_process()
 
 
-        if self.crossover > 0 and not self.position: # 金叉且没有仓位
+        # 金叉且没有仓位
+        if self.crossover > 0 and not self.position:
             self.order = self.order_target_percent(target=0.8)
-            # 提醒信息
-            # print(trade_day)
-            # print(cur_date)
-            # print(pre_date)
-            if trade_day == pre_date:
-                print(cur_date)
-                message.send_message("全仓买入")
+            self.message = "全仓买入"
+            self.message_process()
 
+    def message_process(self):
+        trade_day = self.data0.datetime.date(0)
+        cur_date = datetime.datetime.now().date()
+        # cur_date = datetime.datetime(2021, 11, 16).date()
+        pre_date = cur_date + datetime.timedelta(days=-1)
+
+        cur_time = datetime.datetime.now().time()
+        time_16 = datetime.time(16, 0)
+        time_9 = datetime.time(9, 30)
+
+        compare_date = cur_date
+        if cur_time > time_16 :
+            compare_date = cur_date
+        if cur_time < time_9:
+            compare_date = pre_date
+
+        # 提醒信息
+        if trade_day == compare_date:
+            print(cur_date, self.message)
+            if self.message_able:
+                message.send_message(self.message)
 
