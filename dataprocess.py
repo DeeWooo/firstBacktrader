@@ -31,7 +31,7 @@ def _get_data(need_token = False):
             ['ts_code', 'open', 'high', 'low', 'close', 'pre_close', 'change', 'pct_chg', 'vol', 'amount']]
 
         # print(df)
-        df.to_csv('data/600036-3.csv')
+        df.to_csv('data/600036.csv')
 
     else:
         # 旧接口，不用token

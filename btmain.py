@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
 
     modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
-    datapath = os.path.join(modpath, 'data/600036-3.csv')
+    datapath = os.path.join(modpath, 'data/600036.csv')
 
     dataframe = pd.read_csv(datapath, index_col=0, parse_dates=True)
 
