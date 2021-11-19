@@ -52,9 +52,10 @@ class SmaCross(bt.Strategy):
             self.order = self.order_target_value(target=0)
             # 提醒信息
             # print(trade_day)
-            print(cur_date)
+            # print(cur_date)
             # print(pre_date)
             if trade_day == pre_date:
+                print(cur_date)
                 message.send_message("全部卖出")
 
 
@@ -62,9 +63,10 @@ class SmaCross(bt.Strategy):
             self.order = self.order_target_percent(target=0.8)
             # 提醒信息
             # print(trade_day)
-            print(cur_date)
+            # print(cur_date)
             # print(pre_date)
             if trade_day == pre_date:
+                print(cur_date)
                 message.send_message("全仓买入")
 
 
